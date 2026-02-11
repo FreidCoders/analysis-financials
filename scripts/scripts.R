@@ -22,13 +22,16 @@ segments <- financials %>% group_by(Segment) %>% summarise(n=n())
 attach(segments)
 #visualiser en diagramme bar la distribution des transactions
 
-ggplot(segments, aes(x=Segment,y=n,fill = Segment)) + 
+ggplot(segments, aes(x=factor(Segment,levels = c("Small Business","Midmarket",
+  "Enterprise","Channel Partners",
+  "Government")),y=n,fill = Segment)) + 
   geom_col() +
+  geom_text(aes(label = n), hjust = 1, colour = "black") +
   labs(title = "Nombre de transactions par segment",
        x = "Segment",
-       y = "Fréquence")+
+       y = "count")+
   coord_flip()+
-  theme_minimal()
+  theme_classic()
 
 ggsave("plot/image1.png")
 #Ce graphique nous permet de comprendre que c'est le gouvernement qui 

@@ -1,0 +1,41 @@
+---
+title: "financial"
+format: html
+editor: visual
+---
+
+## Quarto
+
+Financial Analysis 
+
+## Running Code
+
+charger les packages
+
+```{r}
+library(tidyverse)
+financials <- read_csv("../data/raw/Financials.csv")
+getwd()
+```
+
+les codes
+
+```{r}
+# Grouper des donnés financiers par segment
+segments <- financials %>% group_by(Segment) %>% summarise(n=n())
+attach(segments)
+#visualiser en diagramme bar la distribution des transactions
+
+ggplot(segments, aes(x=factor(Segment,levels = c("Small Business","Midmarket",
+  "Enterprise","Channel Partners",
+  "Government")),y=n,fill = Segment)) + 
+  geom_col() +
+  geom_text(aes(label = n), hjust = 1, colour = "black") +
+  labs(title = "Nombre de transactions par segment",
+       x = "Segment",
+       y = "count")+
+  coord_flip()+
+  theme_classic()
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).
