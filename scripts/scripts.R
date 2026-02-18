@@ -36,7 +36,7 @@ ggplot(segments, aes(x=factor(Segment),y=n,fill = Segment)) +
        y = "Total",
        caption = "Data source: Financials Dataset")+
   coord_flip()+
-  theme_()
+  theme_fivethirtyeight()
 
 ggsave("plot/image1.png")
 #Ce graphique nous permet de comprendre que c'est le gouvernement qui 
