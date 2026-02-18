@@ -1,4 +1,6 @@
 library(tidyverse)
+library(ggthemes)
+#library(plotly)
 
 financials <- read_csv("data/raw/Financials.csv")
 
@@ -22,16 +24,15 @@ segments <- financials %>% group_by(Segment) %>% summarise(n=n())
 attach(segments)
 #visualiser en diagramme bar la distribution des transactions
 
-ggplot(segments, aes(x=factor(Segment,levels = c("Small Business","Midmarket",
-  "Enterprise","Channel Partners",
-  "Government")),y=n,fill = Segment)) + 
+ggplot(segments, aes(x=factor(Segment),y=n,fill = Segment)) + 
   geom_col() +
   geom_text(aes(label = n), hjust = 1, colour = "black") +
-  labs(title = "Nombre de transactions par segment",
-       x = "Segment",
-       y = "count")+
+  labs(title = "Nombre de transactions par secteur de marché",
+       x = "Secteurs",
+       y = "Total",
+       caption = "Data source: Financials Dataset")+
   coord_flip()+
-  theme_classic()
+  theme_()
 
 ggsave("plot/image1.png")
 #Ce graphique nous permet de comprendre que c'est le gouvernement qui 
@@ -43,10 +44,14 @@ ggsave("plot/image1.png")
 produits <- financials %>% group_by(Product) %>% summarise(n=n())
     
 ggplot(produits,aes(Product,n,fill = Product))+
-  geom_col() + 
-  labs(title = "Fréquence des produits",
-       x = "Produit",
-       y = "Fréquence")
+  geom_col(linewidth = 2) +
+  geom_text(aes(label = n),vjust = 1,color = "black")+
+  scale_fill_manual(values = c("#7575F5", "#F57575","#F57575", "#41B7C4","#41B7D8","#41B7D8"))+
+  annotate("text",x=5.5,y=190,label = "Total : 700")+
+  labs(title = "Quantité des produits vendues",
+       x = "Produits",
+       y = "quantité")+
+  theme_fivethirtyeight()
 
 ggsave("plot/image2.png")
 #Ce graphique nous fait comprendre que le produit paseo est le plus commandé
