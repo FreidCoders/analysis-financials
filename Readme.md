@@ -9,3 +9,6 @@ Tips for pre-processing:
 3.  Change datatype from objects to int after the above two.
 4.  Challenge: Try removing " , " (comma) from all numerical numbers.
 5.  Try plotting sales and profit with respect to timeline
+
+
+Chiffres d'affaire 
