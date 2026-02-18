@@ -10,5 +10,10 @@ Tips for pre-processing:
 4.  Challenge: Try removing " , " (comma) from all numerical numbers.
 5.  Try plotting sales and profit with respect to timeline
 
+1-Transaction effectuer
 
-Chiffres d'affaire 
+![image1](plot/image1.png)
+
+2-Quantité de produit
+
+![image2](plot/image2.png)
