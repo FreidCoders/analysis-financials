@@ -1,5 +1,7 @@
 library(tidyverse)
 library(ggthemes)
+library(corrplot)
+library(lubridate)
 #library(plotly)
 
 financials <- read_csv("data/raw/Financials.csv")
@@ -19,11 +21,18 @@ financials_detail <- financials %>%
         Sales,COGS,Profit),parse_number))
 
 
- 
+#la matrice de corrélation affiche la relation entre les variables
+
+matrice_cor <- cor(financials_detail[, sapply(financials_detail, is.numeric)],
+                   use = "complete.obs")
+corrplot(matrice_cor, type = "upper", method = "square", 
+         addCoef.col = "black", tl.col = "black", tl.srt = 45)
+
+
 #columns(Units Sold,Manufacuturing price,sale price, gross sales)
 
 #A- Etudes des variables qualitatives
-# Grouper des donnés financiers par segment
+#Grouper des donnés financiers par segment
 segments <- financials_detail %>% group_by(Segment) %>% summarise(n=n())
 attach(segments)
 #visualiser en diagramme bar la distribution des transactions
@@ -62,10 +71,31 @@ ggsave("plot/image2.png")
 
 #B- Etudes des variables quantitatives
 
-#Visualisation de prix de fabrication en fonction 
+#Visualisation des produits de fabrication en fonction 
 #des prix de vente
 
-#financials_detail %>% group_by(Segment) %>% summarise(n = sum(Sales))
+product <- financials_detail %>% group_by(Product) %>% summarise(n = sum(Sales))
 
-#ggplot(financials_detail, aes(x = Month_Name,y = COGS)) +
-  geom_line()
+
+financials_detail %>%
+  filter(Product == "Carretera") %>%
+  group_by(Date) %>%
+  summarize(Units_sold = sum(Units_sold, na.rm = TRUE)) %>%
+  ggplot(aes(x = dmy(Date), y = Units_sold)) +
+  geom_line(color = "black") +
+  geom_point(shape=21, color="black", fill="#69b3a2", size=3) +
+  labs(x = "Date",
+       y = "Unit Sold",
+       title = "Evolution du Chiffre d'affaire de la Carretera") +
+  theme_fivethirtyeight()
+  
+ggsave("plot/image3.png")
+
+financials_detail %>%
+  filter(Product == "Paseo") %>%
+  group_by(Date) %>%
+  summarize(Units_sold = sum(Units_sold, na.rm = TRUE)) %>%
+  ggplot(aes(x = dmy(Date), y = Units_sold)) +
+  geom_line() +
+  geom_point() +
+  theme_fivethirtyeight()
