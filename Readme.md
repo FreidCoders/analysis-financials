@@ -9,3 +9,7 @@ This is a dataset that requires a lot of preprocessing with amazing EDA insights
 2-Quantité de produit
 
 ![image2](plot/image2.png)
+
+3-Chiffre d'affaire de Carretera
+
+![image3](plot/image3.png)
