@@ -71,11 +71,21 @@ ggsave("plot/image2.png")
 
 #B- Etudes des variables quantitatives
 
-#Visualisation des produits de fabrication en fonction 
-#des prix de vente
+#Visualisation des produits de fabrication en fonct
 
-product <- financials_detail %>% group_by(Product) %>% summarise(n = sum(Sales))
+financials_detail %>%
+  filter(Product == "Paseo") %>%
+  group_by(Date) %>%
+  summarize(Units_sold = sum(Units_sold, na.rm = TRUE)) %>%
+  ggplot(aes(x = dmy(Date), y = Units_sold)) +
+  geom_line(color = "black") +
+  geom_point(shape=21, color="black", fill="#69b3a2", size=3) +
+  labs(x = "Date",
+       y = "Unit Sold",
+       title = "Evolution du Chiffre d'affaire du produit Paseo") +
+  theme_fivethirtyeight()
 
+ggsave("plot/image3.png")
 
 financials_detail %>%
   filter(Product == "Carretera") %>%
@@ -86,16 +96,8 @@ financials_detail %>%
   geom_point(shape=21, color="black", fill="#69b3a2", size=3) +
   labs(x = "Date",
        y = "Unit Sold",
-       title = "Evolution du Chiffre d'affaire de la Carretera") +
+       title = "Evolution du Chiffre d'affaire du produit Carretera") +
   theme_fivethirtyeight()
   
-ggsave("plot/image3.png")
+ggsave("plot/image4.png")
 
-financials_detail %>%
-  filter(Product == "Paseo") %>%
-  group_by(Date) %>%
-  summarize(Units_sold = sum(Units_sold, na.rm = TRUE)) %>%
-  ggplot(aes(x = dmy(Date), y = Units_sold)) +
-  geom_line() +
-  geom_point() +
-  theme_fivethirtyeight()

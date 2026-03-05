@@ -1,6 +1,6 @@
 # Company Financials Dataset
 
-This is a dataset that requires a lot of preprocessing with amazing EDA insights for a company. A dataset consisting of sales and profit data sorted by market segment and country/region.
+Il s'agit d'un jeu de données nécessitant un prétraitement important, offrant des analyses exploratoires (EDA) passionnantes pour une entreprise. Ce dataset comprend des données de ventes et de profits, classées par segment de marché et par pays ou région.
 
 1-Transaction effectuer
 
@@ -10,6 +10,10 @@ This is a dataset that requires a lot of preprocessing with amazing EDA insights
 
 ![image2](plot/image2.png)
 
-3-Chiffre d'affaire de Carretera
+3-Chiffre d'affaire de Paseo
 
 ![image3](plot/image3.png)
+
+4-Chiffre d'affaire de Carretera
+
+![image4](plot/image4.png)
