@@ -17,3 +17,7 @@ Il s'agit d'un jeu de données nécessitant un prétraitement important, offrant
 4-Chiffre d'affaire de Carretera
 
 ![image4](plot/image4.png)
+
+5-chiffre d'affaire par pays
+
+![image5](plot/image5.png)

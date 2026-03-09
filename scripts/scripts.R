@@ -2,7 +2,9 @@ library(tidyverse)
 library(ggthemes)
 library(corrplot)
 library(lubridate)
-#library(plotly)
+library(plotly)
+
+
 
 financials <- read_csv("data/raw/Financials.csv")
 
@@ -45,7 +47,7 @@ ggplot(segments, aes(x=factor(Segment),y=n,fill = Segment)) +
        y = "Total",
        caption = "Data source: Financials Dataset")+
   coord_flip()+
-  theme_fivethirtyeight()
+  theme_fivethirtyeight() 
 
 ggsave("plot/image1.png")
 #Ce graphique nous permet de comprendre que c'est le gouvernement qui 
@@ -100,4 +102,18 @@ financials_detail %>%
   theme_fivethirtyeight()
   
 ggsave("plot/image4.png")
+
+#Groupement pas pays
+country <- financials_detail %>% group_by(Country) %>% summarise(Gross_sales = sum(Gross_sales))
+
+# Visualiser avec la carte interactive le chiffre d'affaire de chaque pays
+plot_ly(country, 
+        type = 'choropleth', 
+        locations = ~Country,        
+        locationmode = 'country names',
+        z = ~Gross_sales, 
+        colorscale = 'Viridis') %>%
+  layout(title = "Chiffre d'affaires par pays")
+
+
 
